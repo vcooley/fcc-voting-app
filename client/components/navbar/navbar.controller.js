@@ -4,7 +4,7 @@ angular.module('workspaceApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
       'title': 'Home',
-      'link': '/'
+      'link': '/dashboard'
     }];
 
     $scope.isCollapsed = true;

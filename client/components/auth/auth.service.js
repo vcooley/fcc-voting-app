@@ -1,4 +1,5 @@
 'use strict';
+/* global angular*/
 
 angular.module('workspaceApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
