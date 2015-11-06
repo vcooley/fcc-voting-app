@@ -1,0 +1,59 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>Dashboard</h1>
+    <p class="lead"></p>
+    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+  </div>
+</header>
+<div class="container" role="navigation">
+  
+  <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a href="#" data-target='#create-poll' role="tab" data-toggle="tab">New Poll</a>
+      </li>
+      <li role="presentation" ng-click="getPolls(getCurrentUser())">
+        <a href="#" data-target='#my-polls' role="tab" data-toggle="tab">Your Polls</a>
+      </li>
+      <li role="presentation" ng-click="getPolls(null); editOff()">
+        <a href="#" data-target='#browse' role="tab" data-toggle="tab">Browse Polls</a>
+      </li>
+  </ul>
+</div>
+<!--Tabs content -->
+<div class="container">
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="create-poll" >
+      <div class="col-xs-10 col-xs-offset-1">
+      <form role="form" name="form" class="form-horizontal" novalidate>
+        <h4>Create a Poll</h4>
+        <div class="form-group">
+          <input type="text" name="title" id="title" class="form-control" ng-model="title" placeholder="Poll title" required>
+        </div>
+        <div class="form-group" ng-repeat="choice in choices track by $index">
+          <input type="text" class="form-control" ng-model="choices[$index]" placeholder="Enter choice">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" ng-click="addChoice()">+</button>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-success" ng-click="addPoll(form)">Submit</button>
+        </div>
+      </form>
+        
+      </div>
+      
+    </div>
+    <div role="tabpanel" class="tab-pane" id="my-polls" >
+      <viewpolls></viewpolls>
+    </div>
+    
+    <div role="tabpanel" class="tab-pane" id="browse">
+      <viewpolls></viewpolls>
+    </div>
+  </div>
+ 
+</div>
+   <span>{{ message }}</span>
+  

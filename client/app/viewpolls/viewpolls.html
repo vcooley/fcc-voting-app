@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="row center-block">
+      <button class="btn btn-primary col-xs-4 col-sm-2" ng-disabled="!checkBack()" ng-click="backPoll()">Back</button>
+      <button class="btn btn-primary col-xs-4 col-xs-offset-4 col-sm-offset-8 col-sm-2" ng-disabled="!checkNext()" ng-click="nextPoll()">Next</button>
+    </div>
+    <div class="row center-block">
+      <span class="text-center" ng-model="selected.title"><h2><b>{{ selected.title }}</b></h2></span>  
+    </div>
+    <div class="center-block row" ng-repeat="vote in updatePoll()" ng-show="!voted() || editMode" style="margin-top: 8px; margin-bottom: 8px">
+      <div class="col-xs-12">
+        <div class="btn-block" ng-class="{'btn-group': editMode}">
+          <button class="btn btn-lg" ng-class="{'col-xs-12': !editMode, 'col-xs-9 col-sm-10': editMode}" ng-class-even="'btn-info'" ng-class-odd="'btn-primary'" ng-click="addVote(vote)">{{ vote }}</button>
+          <button class="btn btn-lg btn-danger col-xs-3 col-sm-2" ng-show="editMode && selected" ng-click="deleteChoice(vote)">
+            <span class="glyphicon glyphicon-remove" style="line-height: 1px; top: 3px;"></span>
+            </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Edit mode buttons -->
+    <div class="center-block" ng-show="editMode && selected">
+    <div class="row">
+      <div class="col-xs-12">
+        <br>
+        <div class="input-group input-group-lg">
+         <input type="text" class="form-control" ng-model="currentChoice" aria-describedby="add-choice-button" placeholder="Enter new choice...">
+         <span class="input-group-btn">
+           <button id="add-choice-button" class="btn btn-warning" ng-click="newChoice(currentChoice)" type="button" aria-label="Add choice"><span class="glyphicon glyphicon-plus"></span> Add</button>
+           </span>
+        </div>
+      </div>
+    </div>
+      <div class="row"><hr></div>
+      <div class="row" style="margin-top: 10px">
+        <button class="btn btn-danger btn-block btn-lg" ng-click="deletePoll()">Delete Poll</button>  
+      </div>
+      
+    </div>
+</div>
+  
+<!-- Chart -->
+<div class="container-fluid center-block" id="results" ng-show="chartCreated && voted()" >
+  <br>
+  <div class="row">
+    <canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-legend="true"></canvas>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <button class="btn btn-warning col-xs-3 col-xs-offset-8 col-sm-2" ng-show="selected.author === getCurrentUser()._id" ng-click="toggleEdit()" aria-label="Edit">Edit</button>
+</div>
