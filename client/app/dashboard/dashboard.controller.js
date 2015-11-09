@@ -26,7 +26,7 @@ angular.module('workspaceApp')
     $scope.chartCreated = false;
     
     var i;
-    
+
     // Add an option to the current poll
     $scope.addChoice = function() {
       for(i = 0; i < $scope.choices.length; i++){
@@ -82,20 +82,7 @@ angular.module('workspaceApp')
         $scope.message = 'Successfully submitted poll.';
       });
     };
-    
-    // Get all of a user's polls
-    $scope.getPolls = function(user) {
-      var endpoint;
-      if (user) { endpoint = '/api/polls/user/' + user._id; }
-      else { endpoint = '/api/polls/'; }
-      $http.get(endpoint).success(function(polls) {
-        $scope.polls = polls;
-        $scope.selected = polls[$scope.selIndex];
-        $scope.updatePoll();
-        $scope.chart();
-      });
-    };
-    
+
     // Refresh poll options
     $scope.updatePoll = function() {
       // Update currently selected poll. To be called every time poll is changed
@@ -259,6 +246,20 @@ angular.module('workspaceApp')
       $scope.toggle = function() {
         $scope.type = $scope.type === 'Pie' ? 'PolarArea' : 'Pie';
       };
+    };
+      
+    // Get all of a user's polls or all polls in database (for browse view)
+    // if null is passed as user argument.
+    $scope.getPolls = function(user) {
+      var endpoint;
+      if (user) { endpoint = '/api/polls/user/' + user._id; }
+      else { endpoint = '/api/polls/'; }
+      $http.get(endpoint).success(function(polls) {
+        $scope.polls = polls;
+        $scope.selected = polls[$scope.selIndex];
+        $scope.updatePoll();
+        $scope.chart();
+      });
     };
     
   });

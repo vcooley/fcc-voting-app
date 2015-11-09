@@ -1,3 +1,21 @@
-<div class="col-md-12">
-This is the browse view.
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div ng-init="getPolls(null)">
+
+
+  <header class="hero-unit" id="banner" style="background-color: #5393C8">
+    <div class="container center-block">
+      <h2 class="text-center">Browse and Vote</h2>
+      <p class="lead">Browse the polls in the database. Be sure to vote!</p>
+    </div>
+  </header>
+  
+  <br>
+  <viewpolls></viewpolls>
+  <div class="container center-block">
+    <button class="btn btn-success btn-lg" ng-click="show = true" ng-show="!show">Get Results</button>
+    <button class="btn btn-success btn-lg" ng-click="show = false" ng-show="show">Hide Results</button>
+  </div>
+
+    
 </div>

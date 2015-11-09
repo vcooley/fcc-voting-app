@@ -55,14 +55,17 @@ exports.vote = function(req, res) {
   Polls.findById(req.params.id, function(err, poll) {
     if (err) { return handleError(res, err); }
     if(!poll) { return res.status(404).send('Not Found'); }
-    if (poll.participants.indexOf(req.params.user) !== -1) {
+    // Continue without checking participants
+    if (req.params.user === 'undefined') {}
+    else if (poll.participants.indexOf(req.params.user) !== -1) {
       return res.status(403).send('Already voted');
     }
     var votesField = 'choices.' + req.params.vote + '.votes';
     var votesObj = {};
     votesObj[votesField] = 1;
     Polls.findByIdAndUpdate(req.params.id, 
-      { $inc: votesObj, 
+      { 
+      $inc: votesObj, 
       $push: {participants: req.params.user} 
       }, 
       function(err, updated) {
